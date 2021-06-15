@@ -1,0 +1,10 @@
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> res = restTemplate.getForEntity(address, String.class);
+
+        JsonNode node = new ObjectMapper().readTree(res.getBody());
+        System.out.println(node.get("url"));
+        System.out.println(node.get("url").get("categories"));
+        System.out.println(node.get("url").get("categories").get(0));
+        int id = node.get("url").get("categories").get(0).get("id").asInt();
+        String categoryName = node.get("url").get("categories").get(0).get("name").asText();
+        Category cat = new Category(id, categoryName);
